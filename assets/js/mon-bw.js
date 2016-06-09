@@ -6,16 +6,26 @@
 
 var devices = [];
 
-function formatBw(v, precision)
+function formatBw(vv, precision)
 {
+    var v = parseFloat(vv); // add *8 to convert in bits/s
+    var res = '???';
+
     if (v < 1024*1024)
     {
-        return (parseFloat(v / 1024).toFixed(precision) + " KB/s");
+        res = (parseFloat(v / 1024).toFixed(precision) + " KB/s");
     }
-    if (v < 1024*1024*1024)
+    else if (v < 1024*1024*1024)
     {
-        return (parseFloat(v / (1024 * 1024)).toFixed(precision) + " MB/s");
+        res = (parseFloat(v / (1024 * 1024)).toFixed(precision) + " MB/s");
     }
+    else
+    {
+        res = (parseFloat(v / (1024 * 1024 * 1024)).toFixed(precision) + " GB/s");
+    }
+    while (res.length < 11)
+	res = ' ' + res;
+    return (res);
 }
 
 function graph_bw(d, target)
@@ -40,6 +50,8 @@ function graph_bw(d, target)
     devices[d].up = 0;
     devices[d].dn = 0;
 
+    devices[d].sup = 0;
+    devices[d].sdn = 0;
 
     // Add to SmoothieChart
     devices[d].smoothie.addTimeSeries(devices[d].line1, { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
@@ -52,8 +64,13 @@ function push_data(index, data)
 	return ;
     if (devices[index].up != 0) // not the first value
     {
-	devices[index].line1.append(new Date().getTime(), data['up'] -  devices[index].up);
-	devices[index].line2.append(new Date().getTime(), data['dn'] -  devices[index].dn);
+	devices[index].sup = data['up'] -  devices[index].up;
+	devices[index].sdn = data['dn'] -  devices[index].dn;
+	devices[index].line1.append(new Date().getTime(), devices[index].sup);
+	devices[index].line2.append(new Date().getTime(), devices[index].sdn);
+	$("#txt-" + index).html( '<span class="upload">UP:</span> ' + formatBw(devices[index].sup, 2)
+			       + ' :: '
+				 + '<span class="download">DN:</span> ' + formatBw(devices[index].sdn, 2));
     }
     devices[index].up = data['up'];
     devices[index].dn = data['dn'];

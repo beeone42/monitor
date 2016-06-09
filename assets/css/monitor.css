@@ -1,0 +1,27 @@
+body
+{
+    text-align: center;
+}
+pre
+{
+    color: inherit;
+    background-color: rgba(0,0,0,0);
+    border: 0px;
+    padding: 0px;
+    padding-bottom: 10px;
+    margin: 0px;
+    font-size: 14px;
+    font-family: monospace, lucida;
+}
+.upload
+{
+    color: #00ff00;
+}
+.download
+{
+    color: #ff00ff;
+}
+.small-bottom
+{
+    padding-bottom: 10px;
+}
