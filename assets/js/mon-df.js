@@ -60,7 +60,7 @@ $(function () {
 	    title: { text: '' }
 	},
 	legend: { reversed: true },
-	plotOptions: { series: { stacking: 'normal', pointWidth: 40 } },
+	plotOptions: { series: { stacking: 'percent', pointWidth: 40 } },
 	series: [{
 	    name: 'Free',
 	    data: []

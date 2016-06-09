@@ -76,6 +76,29 @@ function push_data(index, data)
     devices[index].dn = data['dn'];
 }
 
+function create_bw_div(devname, v)
+{
+    $("#bws").append('<canvas net="' + devname + '" id="bw-' + devname + '" width="800px" height="100"></canvas>');
+    $("#bws").append('<pre id="txt-' + devname + '">---</pre>');
+
+    graph_bw(devname, 'bw-' + devname);
+}
+
+// first grab to create divs for each network interface
+
+
+$(function () {
+    //graph_bw('eth0', 'bw-eth0');
+    //graph_bw('eth1', 'bw-eth1');
+
+    $.getJSON('data.php?t=bw', function (data) {
+	$.each(data['bw'], create_bw_div);
+    });
+
+
+
+});
+
 // grab send and received bytes every second for every network interface
 setInterval(function() {
     $.getJSON('data.php?t=bw', function (data) {

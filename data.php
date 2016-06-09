@@ -2,8 +2,10 @@
 
 header('Content-Type: application/json');
 
-$bws = Array('eth0', 'eth1');
-$dfs = Array('/');
+$config = json_decode(file_get_contents(file_exists('config.json') ? 'config.json' : 'config.sample.json'), TRUE);
+
+$bws = $config['networks'];    // Array('eth0');
+$dfs = $config['filesystems']; // Array('/', '/home/', '/usr/', '/var/');
 
 if ($_REQUEST['t'] == 'bw')
   {

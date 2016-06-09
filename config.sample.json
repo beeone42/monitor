@@ -1,0 +1,11 @@
+{
+  "networks": [
+    "eth0"
+  ],
+  "filesystems": [
+    "/",
+    "/home/",
+    "/usr/",
+    "/var/"
+  ]
+}

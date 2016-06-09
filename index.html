@@ -42,11 +42,7 @@
 		<div class="modal-header">
 		  <h4 class="modal-title">Bandwidth</h4>
 		</div>
-		<div class="modal-body text-center">
-		  <canvas id="bw-eth0" width="800px" height="100"></canvas>
-		  <pre id="txt-eth0">---</pre>
-		  <canvas id="bw-eth1" width="800px" height="100"></canvas>
-		  <pre id="txt-eth1">---</pre>
+		<div id="bws" class="modal-body text-center">
 		</div>
 	      </div>
             </div>
@@ -68,10 +64,6 @@
     <script src="assets/bootstrap/bootstrap.min.js"></script>
     <script src="assets/bootstrap/usebootstrap.js"></script>
     <script src="assets/js/mon-bw.js"></script>
-    <script>
-      graph_bw('eth0', 'bw-eth0');
-      graph_bw('eth1', 'bw-eth1');
-    </script>
     <script src="assets/js/mon-df.js"></script>
   </body>
 </html>
