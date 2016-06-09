@@ -61,8 +61,7 @@ function push_data(index, data)
 
 // grab send and received bytes every second for every network interface
 setInterval(function() {
-    
-    $.getJSON('data.php', function (data) {
-	$.each(data, push_data);
+    $.getJSON('data.php?t=bw', function (data) {
+	$.each(data['bw'], push_data);
     });
 }, 1000);

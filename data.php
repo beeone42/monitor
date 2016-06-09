@@ -2,13 +2,26 @@
 
 header('Content-Type: application/json');
 
-$devs = Array('eth0', 'eth1');
+$bws = Array('eth0', 'eth1');
+$dfs = Array('/', '/space/');
 
-foreach ($devs as $d)
+if ($_REQUEST['t'] == 'bw')
   {
-    $j[$d]['up'] = trim(@file_get_contents('/sys/class/net/'.$d.'/statistics/tx_bytes'));
-    $j[$d]['dn'] = trim(@file_get_contents('/sys/class/net/'.$d.'/statistics/rx_bytes'));
+    foreach ($bws as $d)
+      {
+	$j[$d]['up'] = trim(@file_get_contents('/sys/class/net/'.$d.'/statistics/tx_bytes'));
+	$j[$d]['dn'] = trim(@file_get_contents('/sys/class/net/'.$d.'/statistics/rx_bytes'));
+      }
+    echo json_encode(Array('bw' => $j));
   }
-echo json_encode($j)
+
+if ($_REQUEST['t'] == 'df')
+  {
+    foreach ($dfs as $d)
+      {
+	$k[$d] = trim(`df $d | tail -1 | awk '{print $5}' | tr -d '%'`);
+      }
+    echo json_encode(Array('df' => $j));
+  }
 
 ?>
